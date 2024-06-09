@@ -91,7 +91,7 @@ const Sidebar=({handleLogout,user})=>{
          </IconButton>
          <Menu id="basic-menu" anchorEl={anchorEl} open={openMenu} onClick={handleClose} onClose={handleClose}>
             <MenuItem className="profile_info1">
-            <Avatar/>
+            <Avatar src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} />
             <div className="user_info subUser_info">
                 <div>
                   {/* {console.log(loggedInUser[0]?.name ? loggedInUser[0].name : user && user.displayName)} */}

@@ -19,7 +19,7 @@
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [loggedInUser] = useLoggedInUser();
 
-//   const username = user?.email?.split('@')[0];
+//   const username = user[0]?.email?.split('@')[0];
 //   const [posts, setPosts] = useState([]);
 
   
@@ -44,17 +44,17 @@
 //         // setImageURL(url);
 //         // console.log(res.data.data.display_url);
 //         const userCoverImage = {
-//           email: user?.email,
+//           email: user[0]?.email,
 //           coverImage: url,
 //         }
 //         setIsLoading(false)
 
 //         if (url)
 //             {
-//                 axios.patch(`http://localhost:5000/userUpdates/${user?.email}`,userCoverImage)
+//                 axios.patch(`http://localhost:5000/userUpdates/${user[0]?.email}`,userCoverImage)
 //              }
 //         //      {
-//         //   fetch(`https://pacific-peak-30751.herokuapp.com/userUpdates/${user?.email}`, {
+//         //   fetch(`https://pacific-peak-30751.herokuapp.com/userUpdates/${user[0]?.email}`, {
 //         //     method: "PATCH",
 //         //     headers: {
 //         //       'content-type': 'application/json'
@@ -88,15 +88,15 @@
 //         // setImageURL(url);
 //         // console.log(res.data.data.display_url);
 //         const userProfileImage = {
-//           email: user?.email,
+//           email: user[0]?.email,
 //           profileImage: url,
 //         }
 //         setIsLoading(false)
 //          if (url) {
-//             axios.patch(`http://localhost:5000/userUpdates/${user?.email}`,userProfileImage)
+//             axios.patch(`http://localhost:5000/userUpdates/${user[0]?.email}`,userProfileImage)
 //          }
 //         //{
-//         //   fetch(`https://pacific-peak-30751.herokuapp.com/userUpdates/${user?.email}`, {
+//         //   fetch(`https://pacific-peak-30751.herokuapp.com/userUpdates/${user[0]?.email}`, {
 //         //     method: "PATCH",
 //         //     headers: {
 //         //       'content-type': 'application/json'
@@ -212,22 +212,23 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import Post from './Post/Post';
+import EditProfile from '../EditProfile/EditProfile';
 
 const MainProfile = ({ user }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [loggedInUser] = useLoggedInUser();
-  const username = user?.email?.split('@')[0];
+  const username = user[0]?.email?.split('@')[0];
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/post`)
+    fetch(`http://localhost:5000/userPost?email=${user[0]?.email}`)
       .then(res => res.json())
       .then(data => {
         setPosts(data);
       })
       .catch(error => console.error("Error fetching posts:", error));
-  }, []); // Run only once on component mount
+  }); // Run only once on component mount
 
   const handleUploadCoverImage = e => {
     setIsLoading(true);
@@ -239,12 +240,12 @@ const MainProfile = ({ user }) => {
       .then(res => {
         const url = res.data.data.display_url;
         const userCoverImage = {
-          email: user?.email,
+          email: user[0]?.email,
           coverImage: url,
         };
         setIsLoading(false);
         if (url) {
-          axios.patch(`http://localhost:5000/userUpdates/${user?.email}`, userCoverImage)
+          axios.patch(`http://localhost:5000/userUpdates/${user[0]?.email}`, userCoverImage)
             .then(response => {
               console.log("Cover image updated:", response.data);
             })
@@ -267,12 +268,12 @@ const MainProfile = ({ user }) => {
       .then(res => {
         const url = res.data.data.display_url;
         const userProfileImage = {
-          email: user?.email,
+          email: user[0]?.email,
           profileImage: url,
         };
         setIsLoading(false);
         if (url) {
-          axios.patch(`http://localhost:5000/userUpdates/${user?.email}`, userProfileImage)
+          axios.patch(`http://localhost:5000/userUpdates/${user[0]?.email}`, userProfileImage)
             .then(response => {
               console.log("Profile image updated:", response.data);
             })
@@ -328,10 +329,11 @@ const MainProfile = ({ user }) => {
               <div className='userInfo'>
                 <div>
                   <h3 className='heading-3'>
-                    {loggedInUser[0]?.name || user?.displayName}
+                    {loggedInUser[0]?.name || user[0]?.displayName}
                   </h3>
                   <p className='usernameSection'>@{username}</p>
                 </div>
+                <EditProfile user={user} loggedInUser={loggedInUser} />
               </div>
               <div className='infoContainer'>
                 {loggedInUser[0]?.bio && <p>{loggedInUser[0].bio}</p>}

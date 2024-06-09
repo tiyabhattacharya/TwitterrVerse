@@ -17,8 +17,8 @@ function TweetBox() {
     const [user, loading, error] = useAuthState(auth); // Pass the auth object here
     const email = user?.email;
 
-    const userProfilePic = loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-
+    const userProfilePic = loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
+    //const userProfilePic = loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
     const handleUploadImage = (e) => {
         setIsLoading(true);
         const image = e.target.files[0];
@@ -95,7 +95,8 @@ function TweetBox() {
         <div className="tweetBox">
             <form onSubmit={handleTweet}>
                 <div className="tweetBox__input">
-                    <Avatar src={userProfilePic} />
+                <Avatar src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} />
+                   
                     <input
                         type="text"
                         placeholder="What's happening?"

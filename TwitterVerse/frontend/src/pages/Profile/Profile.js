@@ -6,7 +6,7 @@ import '../pages.css'
 
 function Profile() {
 
-    const { user } = useAuthState(auth);
+    const  user  = useAuthState(auth);
     return (
         <div className='profilePage'>
             <MainProfile user={user} />

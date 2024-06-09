@@ -67,9 +67,11 @@
   .heading-3 {
     margin-left: 20px;
     font-size: 24px;
+    margin-bottom: 0px;
   }
 
   .usernameSection {
+    margin-top: 0px;
     margin-left: 20px;
     color: darkgrey;
   }

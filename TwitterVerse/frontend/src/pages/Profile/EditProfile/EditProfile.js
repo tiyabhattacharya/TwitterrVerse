@@ -37,7 +37,7 @@ function EditChild({ dob, setDob }) {
   return (
     <React.Fragment>
       <div className='birthdate-section' onClick={handleOpen}>
-        <text>Edit</text>
+        <span>Edit</span>
       </div>
       <Modal
         hideBackdrop

@@ -81,7 +81,8 @@ async function run() {
         
         // patch
 app.patch('/userUpdates/:email', async (req, res) => {
-  const filter = {email:req.body.email};
+  // const filter = {email:req.body.email};
+  const filter =req.params;
   const profile = req.body;
   const options = { upsert: true };
   const updateDoc = { $set: profile };
